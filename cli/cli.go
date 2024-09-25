@@ -16,6 +16,7 @@ func init() {
 	flag.StringVarP(&topImg, "top", "t", "", "Path to top image")
 	flag.StringVarP(&bottomImg, "bottom", "b", "", "Path to bottom image")
 	flag.StringVarP(&outputImg, "output", "o", defaultOutputImg, "Path to output image")
+	flag.CommandLine.SortFlags = false
 }
 
 func Run() {

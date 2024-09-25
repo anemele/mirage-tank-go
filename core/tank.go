@@ -130,20 +130,22 @@ func merge(topImg, bottomImg grayMatrix) image.Image {
 	return newImg
 }
 
-func Make(topImg, bottomImg, output string) (err error) {
+func Make(topImg, bottomImg, output string) error {
 	tg, err := readToGray(topImg)
 	if err != nil {
-		return
+		return err
 	}
-	if darken(&tg, true) != nil {
-		return
+	err = darken(&tg, true)
+	if err != nil {
+		return err
 	}
 	bg, err := readToGray(bottomImg)
 	if err != nil {
-		return
+		return err
 	}
-	if darken(&bg, false) != nil {
-		return
+	err = darken(&bg, false)
+	if err != nil {
+		return err
 	}
 
 	tg2, bg2 := sameSizeAndCenter(tg, bg)
@@ -151,10 +153,10 @@ func Make(topImg, bottomImg, output string) (err error) {
 	img := merge(tg2, bg2)
 	f, err := os.Create(output)
 	if err != nil {
-		return
+		return err
 	}
 	defer f.Close()
 	png.Encode(f, img)
 
-	return
+	return nil
 }

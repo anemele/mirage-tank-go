@@ -17,10 +17,6 @@ rd /s /q %dist%
 exit /b
 
 :lbl-build
-if not exist %dist% (
-    mkdir %dist%
-    echo *> %dist%/.gitignore
-)
 call :lbl-windows
 call :lbl-linux
 call :lbl-darwin
